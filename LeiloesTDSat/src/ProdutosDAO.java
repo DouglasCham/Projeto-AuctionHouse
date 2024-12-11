@@ -23,6 +23,7 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     private final String SQL_INSERT = "INSERT INTO produtos (nome, valor, status) VALUES (?,?,?)";
+    private final String SQL_SELECT = "SELECT id, nome, valor, status FROM produtos";
     
     public void cadastrarProduto (ProdutosDTO produto){
         try {
@@ -41,12 +42,24 @@ public class ProdutosDAO {
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
-        
+        try {
+            int ID, VALOR;
+            String NOME, STATUS;
+            conn = new conectaDAO().connectDB();
+            prep = conn.prepareStatement(SQL_SELECT);
+            resultset = prep.executeQuery();
+            while(resultset.next()){
+                ID = resultset.getInt("id");
+                NOME = resultset.getString("nome");
+                VALOR = resultset.getInt("valor");
+                STATUS = resultset.getString("status");
+                ProdutosDTO produto = new ProdutosDTO(ID,NOME,VALOR,STATUS);
+                listagem.add(produto);
+            }
+        }  catch(SQLException e){
+            listagem.clear();
+        }
         return listagem;
-    }
-    
-    
-    
-        
+    }      
 }
 

@@ -23,7 +23,7 @@ public class conectaDAO {
         try {
         
             conn = DriverManager.getConnection("jdbc:mysql://localhost/auctionhousedb?user=root&password=&useSSL=false");
-            System.out.println("Conectado no banco de dados.");
+//            System.out.println("Conectado no banco de dados."); Teste de conexão com banco de dados
             
         } catch (SQLException erro){
             JOptionPane.showMessageDialog(null, "Erro ConectaDAO" + erro.getMessage());
